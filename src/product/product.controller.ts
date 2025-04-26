@@ -15,13 +15,12 @@ export class ProductController {
   constructor(private productservice: ProductService) {}
 
     @Get()
-    searchAll(){
-        return this.productservice.searchAll();
-    }
-
-    @Get()
     findAll(@Query('name') name?: string) {
-        return this.productservice.findAll(name);
+        if (name) {
+            return this.productservice.findAll(name);
+        }
+
+        return this.productservice.searchAll();
     }
 
     @Get(":id")
