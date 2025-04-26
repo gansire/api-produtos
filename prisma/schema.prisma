@@ -10,9 +10,11 @@ datasource db {
 
 model Category {
   id String @id @default(uuid())
-  parentId String?
   name String
-  products Product[] @relation("CategoryProducts")
+  parent   Category? @relation("Subcategories", fields: [parentId], references: [id])
+  parentId String?
+  children Category[] @relation("Subcategories")
+  products Product[]
 }
 
 model Product {
@@ -21,5 +23,6 @@ model Product {
   qty        Int
   price      Float
   photo      String
-  category   Category[] @relation("CategoryProducts")
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
 }
