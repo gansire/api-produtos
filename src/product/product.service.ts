@@ -5,6 +5,10 @@ import { PrismaService } from '../../prisma/prisma.service';
 export class ProductService {
   constructor(private prisma: PrismaService) {}
 
+  searchAll(){
+    return this.prisma.product.findMany()
+  }
+
   findAll(name?: string){
     return this.prisma.product.findMany({
       where: name ? { name: { contains: name.toLowerCase() } } : undefined,
